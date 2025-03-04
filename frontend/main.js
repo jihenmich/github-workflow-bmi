@@ -1,9 +1,11 @@
-Array.from(document.getElementsByTagName('input'))
+Array
+  .from(document.getElementsByTagName('input'))
   .forEach(element => {
     element.addEventListener('change', updateUI);
-  });
+});
 
 function updateUI() {
+  // Logik zur Aktualisierung des UI hier
   const weight = document.getElementById('weight').value;
   const height = document.getElementById('height').value;
   const bmi = calculateBMI(weight, height);
@@ -11,9 +13,12 @@ function updateUI() {
 }
 
 function calculateBMI(weight, height) {
-  const heightInMeters = height / 100;
-  return Math.round(weight / (heightInMeters * heightInMeters));
+  // Logik zur Berechnung des BMI hier
+  const heightInMeters = height / 100; // Umrechnung von Zentimetern in Meter
+  const bmi = Math.round(weight / (heightInMeters * heightInMeters));
+  return bmi;
 }
 
-// ES-Modul-Export
-export { calculateBMI };
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { calculateBMI };
+}
