@@ -4,22 +4,27 @@ on:
   push:
     branches:
       - main
-
 jobs:
   calculating:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Code auschecken
-        uses: actions/checkout@v3
 
-      - name: Node.js einrichten
-        uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Abhängigkeiten installieren
+      - name: Install Dependencies
         run: npm install
 
-      - name: BMI-Test ausführen
+      - name: Test the CalculateBMI function
         run: npm test
+
+      - name: Setup ssh keys
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      # deploy to ec2
